@@ -129,7 +129,7 @@ function addData() {
     sum =
       sum +
       ` <div class="reel">
-            <video autoplay loop muted src=${reel.video}></video>
+            <video autoplay loop controls muted src=${reel.video}></video>
             <div class="bottom">
               <div class="user">
                 <img
@@ -137,7 +137,9 @@ function addData() {
                   alt=""
                 />
                 <h4>${reel.username}</h4>
-                <button>${reel.isFollowed ? "Following" : "Follow"}</button>
+                <button class="follow" id=${idx}>${
+        reel.isFollowed ? "Following" : "Follow"
+      }</button>
               </div>
               <h3>${reel.caption}</h3>
             </div>
@@ -175,12 +177,24 @@ function addData() {
 addData();
 
 allReels.addEventListener("click", function (dets) {
-  if (!reels[dets.target.id].isLiked) {
-    reels[dets.target.id].likeCount++;
-    reels[dets.target.id].isLiked = true;
-  } else {
-    reels[dets.target.id].likeCount--;
-    reels[dets.target.id].isLiked = false;
+  if (dets.target.className == "like") {
+    if (!reels[dets.target.id].isLiked) {
+      reels[dets.target.id].likeCount++;
+      reels[dets.target.id].isLiked = true;
+    } else {
+      reels[dets.target.id].likeCount--;
+      reels[dets.target.id].isLiked = false;
+    }
+    addData();
   }
-  addData();
+
+  if (dets.target.className == "follow") {
+    if (!reels[dets.target.id].isFollowed) {
+      reels[dets.target.id].isFollowed = true;
+    } else {
+      reels[dets.target.id].isFollowed = false;
+    }
+    addData();
+  }
 });
+
