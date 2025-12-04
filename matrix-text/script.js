@@ -15,7 +15,7 @@ para.addEventListener("mouseenter", (e) => {
       })
       .join("");
     para.innerText = str;
-    iteration += 0.50;
+    iteration += 0.5;
     console.log(iteration);
     if (iteration > text.length) {
       clearInterval(interval);
